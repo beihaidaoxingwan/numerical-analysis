@@ -9,7 +9,7 @@ insert_X = list(eval(input("请输入预插入值的横坐标:")))
 fig_before = plt.figure()
 before = fig_before.add_subplot(111)
 
-before.set(xlim=[-30, 30], ylim=[-30, 30], title='Data_before_Newton', ylabel='Y-Axis', xlabel='X-Axis')
+before.set(xlim=[0.3, 1.5], ylim=[0.3, 1.5], title='Data_before_Newton', ylabel='Y-Axis', xlabel='X-Axis')
 before.plot(point_X, point_Y, color='lightblue', linewidth=1.5)
 before.scatter(point_X, point_Y, s=25, c='r') 
 
@@ -33,9 +33,16 @@ for x in insert_X:
         print("第%d阶差商" % flag)
         print(res_1[0])
         result = point_Y[0]
-    for i in range(0, len(point_X) - 1):
+    for i in range(0, len(first_list) - 1):
+        mid = 0
         for j in range(0, i + 1):
-            result = result + first_list[i]*(x - point_X[j])
+            if (j == 0):
+                mid = first_list[i]*(x - point_X[j])
+            else:
+                mid = mid * (x - point_X[j])
+            print("%f" % first_list[i])
+            print("(x - %f)" % point_X[j])
+        result = result + mid
     if (x > point_X[len(point_X) - 1]):
         point_X.append(x)
         point_Y.append(result)
@@ -45,12 +52,13 @@ for x in insert_X:
                 position = point_X.index(mid)
                 point_X.insert(position, x)
                 point_Y.insert(position, result)
+                break
 print(point_X)
 print(point_Y)        
 
 fig_after = plt.figure()
 after = fig_after.add_subplot(111)
-after.set(xlim=[-30, 30], ylim=[-30, 30], title='Data_after_Newton', ylabel='Y-Axis', xlabel='X-Axis')
+after.set(xlim=[0.3, 1.5], ylim=[0.3, 1.5], title='Data_after_Newton', ylabel='Y-Axis', xlabel='X-Axis')
 after.plot(point_X, point_Y, color='lightblue', linewidth=1.5)
-after.scatter(point_X, point_Y, s=25, c='r') 
+after.scatter(point_X, point_Y, s=25, c='r')
 plt.show()
