@@ -24,7 +24,7 @@ point_Y = list(eval(input("请输入所有纵坐标:")))
 fig_before = plt.figure()
 before = fig_before.add_subplot(111)
 
-before.set(xlim=[-20, 20], ylim=[-20, 20], title='Data_before_lagerange', ylabel='Y-Axis', xlabel='X-Axis')
+before.set(xlim=[0.3, 1.5], ylim=[0.3, 1.5], title='Data_before_lagerange', ylabel='Y-Axis', xlabel='X-Axis')
 before.plot(point_X, point_Y, color='lightblue', linewidth=1.5)
 before.scatter(point_X, point_Y, s=25, c='r') 
 
@@ -35,15 +35,23 @@ for x in insert_X:
     result = 0
     for i in range(0, len(point_X)):
         result = result + lagerange(x, point_X, point_Y, i, len(point_X))
-    point_X.append(x)
-    point_Y.append(result)
+    if (x > point_X[len(point_X) - 1]):
+        point_X.append(x)
+        point_Y.append(result)
+    else:
+        for mid in point_X:
+            if (mid > x):
+                position = point_X.index(mid)
+                point_X.insert(position, x)
+                point_Y.insert(position, result)
+                break
         
 
 print(point_Y)
 
 fig_after = plt.figure()
 after = fig_after.add_subplot(111)
-after.set(xlim=[-20, 20], ylim=[-20, 20], title='Data_after_lagerange', ylabel='Y-Axis', xlabel='X-Axis')
+after.set(xlim=[0.3, 1.5], ylim=[0.3, 1.5], title='Data_after_lagerange', ylabel='Y-Axis', xlabel='X-Axis')
 after.plot(point_X, point_Y, color='lightblue', linewidth=1.5)
 after.scatter(point_X, point_Y, s=25, c='r') 
 plt.show()
